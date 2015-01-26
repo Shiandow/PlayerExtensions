@@ -22,13 +22,7 @@ namespace Mpdn.PlayerExtensions.GitHub
         {
             base.Setup(settings);
 
-            RenderScripts = 
-                PlayerControl.RenderScriptAssemblies.SelectMany(a => a.GetTypes())
-                .Where(t => t.IsClass && !t.IsAbstract && t.IsPublic
-                    && typeof(IRenderScriptUi).IsAssignableFrom(t)
-                    && t.GetConstructor(Type.EmptyTypes) != null)
-                .Select(t => (IRenderScriptUi)Activator.CreateInstance(t))
-                .Where(s => s.Descriptor.Guid != PresetExtension.ScriptGuid).ToList();
+            RenderScripts = PlayerControl.RenderScripts.Where(s => s.Descriptor.Guid != PresetExtension.ScriptGuid).ToList();            
 
             scriptBox.DataSource = RenderScripts.Select(x => new KeyValuePair<string, IRenderScriptUi>(x.Descriptor.Name, x)).ToList();
             scriptBox.DisplayMember = "Key";
@@ -158,8 +152,8 @@ namespace Mpdn.PlayerExtensions.GitHub
             var type = scriptBox.SelectedValue.GetType();
             var script = (IRenderScriptUi)Activator.CreateInstance(type);
             script.Initialize();
-            var preset = new RenderScriptPreset() { Name = "Preset " + presetGrid.Rows.Count, Script = script };
 
+            var preset = new RenderScriptPreset() { Name = "Preset " + presetGrid.Rows.Count, Script = script };
             AddPreset(preset);
         }
     }
