@@ -89,6 +89,13 @@ namespace Mpdn.PlayerExtensions
             }
         }
 
+        public override void Destroy()
+        {
+            base.Destroy();
+
+            ScriptConfig.Save();
+        }
+
         #endregion
 
         #region ScriptSettings Class
