@@ -12,7 +12,7 @@ using System.Threading;
 
 namespace Mpdn.PlayerExtensions
 {
-    public class ACMPlug : ConfigurablePlayerExtension<RemoteControlSettings, RemoteControlConfig>
+    public class ACMPlug : PlayerExtension<RemoteControlSettings, RemoteControlConfig>
     {
         #region Variables
         private Socket serverSocket;
@@ -31,11 +31,11 @@ namespace Mpdn.PlayerExtensions
         }
         #endregion
 
-        protected override PlayerExtensionDescriptor ScriptDescriptor
+        public override ExtensionUiDescriptor Descriptor
         {
             get 
             {
-                return new PlayerExtensionDescriptor
+                return new ExtensionUiDescriptor
                 {
                     Guid = new Guid("C7FC1078-6471-409D-A2F1-34FF8903D6DA"),
                     Name = "Remote Control",

@@ -87,7 +87,7 @@ namespace Mpdn.PlayerExtensions.GitHub
             RenderScriptPreset selectedPreset = null;
             if (presetGrid.SelectedRows.Count > 0) selectedPreset = (presetGrid.SelectedRows[0].Tag as RenderScriptPreset);
 
-            buttonConfigure.Enabled = selectedPreset != null && selectedPreset.Script.Descriptor.HasConfigDialog;
+            buttonConfigure.Enabled = selectedPreset != null && selectedPreset.Script.HasConfigDialog();
             menuRemove.Enabled = selectedPreset != null;
             menuConfigure.Enabled = buttonConfigure.Enabled;
         }
@@ -107,7 +107,7 @@ namespace Mpdn.PlayerExtensions.GitHub
             if (preset == null) return;
 
             var script = preset.Script;
-            if (script.Descriptor.HasConfigDialog && script.ShowConfigDialog(Owner))
+            if (script.HasConfigDialog() && script.ShowConfigDialog(Owner))
                 UpdateRow(row);
         }
 
